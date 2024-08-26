@@ -1,5 +1,6 @@
 package com.esig.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -75,6 +76,11 @@ public class TaskBean {
         }
         taskDAO.atualizar(task);
         return "";
+    }
+    
+    public String detalharTask(Long id){
+    	task = taskDAO.buscarPorId(id);
+        return null;
     }
     
     public String cancelar(){
