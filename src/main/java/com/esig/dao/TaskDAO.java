@@ -35,7 +35,7 @@ public class TaskDAO {
 		return t;
 	}
 	
-	public List<Task> buscarTodos(String filtroTitulo, String filtroResponsavel, Long filtroNumero, String filtroSituacaoDescricao) {
+	public List<Task> buscarTodos(String filtroTitulo, String filtroResponsavel, Long filtroNumero) {
 	    EntityManager entity = JPAUtil.getEntityManagerFactory().createEntityManager();
 
 	    StringBuilder queryBusca = new StringBuilder("SELECT t FROM Task t WHERE 1=1");
@@ -49,9 +49,7 @@ public class TaskDAO {
 	    if (filtroNumero != null) {
 	        queryBusca.append(" AND t.id = :filtroNumero");
 	    }
-	    if (filtroSituacaoDescricao != null && !filtroSituacaoDescricao.isEmpty()) {
-	        queryBusca.append(" AND t.situacao = :filtroSituacao");
-	    }
+
 
 	    queryBusca.append(" ORDER BY t.situacao, t.prioridade DESC, t.deadline, t.dataCriacao");
 
@@ -66,11 +64,7 @@ public class TaskDAO {
 	    if (filtroNumero != null) {
 	        query.setParameter("filtroNumero", filtroNumero);
 	    }
-	    if (filtroSituacaoDescricao != null && !filtroSituacaoDescricao.isEmpty()) {
-	            int situacaoNivel = Situacao.fromDescricao(filtroSituacaoDescricao);
-	            query.setParameter("filtroSituacao", situacaoNivel);
 
-	    }
 
 	    List<Task> listaTasks = query.getResultList();
 	    entity.close();

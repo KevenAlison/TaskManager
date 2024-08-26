@@ -12,7 +12,12 @@ public class TaskService {
     private TaskDAO taskDAO = new TaskDAO();
 
     public List<Task> filtrarTasks(String filtroTitulo, String filtroResponsavel, Long filtroNumero, String filtroSituacao) {
-        return taskDAO.buscarTodos(filtroTitulo, filtroResponsavel, filtroNumero, filtroSituacao);
+    	List<Task> tasks = taskDAO.buscarTodos(filtroTitulo, filtroResponsavel, filtroNumero);
+    	if (filtroSituacao != null && !filtroSituacao.isEmpty()) {
+            tasks.removeIf(t -> !t.getSituacao().getDescricao().equals(filtroSituacao));
+        }
+    	return tasks;
+    	
     }
 
     public void salvarTask(Task task) throws NegocioException {
