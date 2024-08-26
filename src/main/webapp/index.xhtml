@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="utf-8" name="viewport"
+          content="width=device-width, initial-scale=1"
+          http-equiv="X-UA-Compatible" />
+    <h:outputStylesheet library="css" name="style.css"/> 
+    <title>Gerenciador de Tarefas</title>
+</h:head>
+
+<h:body>
+    <p:graphicImage library="images" name="esig-removebg.png" width="200px"/>
+
+    <!-- Formulário de Cadastro -->
+    <h:form id="formCadastro">
+        <p:panel header="Cadastrar Tarefa" width="50%">
+            <h:panelGrid cellpadding="10" cellspacing="10">
+            
+                <p:outputLabel for="titulo" value="Título:" />
+                <p:inputText id="titulo" required="true" value="#{taskBean.task.titulo}" />
+                
+                <p:outputLabel for="descricao" value="Descrição:" />
+                <p:inputTextarea id="descricao" required="true" 
+                    rows="4" maxlength="50"
+                    counter="saida" counterTemplate="{0} caracteres restantes"
+                    value="#{taskBean.task.descricao}" />          
+                <p:outputLabel id="saida" />
+                
+                <p:outputLabel for="responsavel" value="Responsável:" />
+                <p:inputText id="responsavel" required="true" value="#{taskBean.task.responsavel}" />
+
+                <p:outputLabel for="prioridade" value="Prioridade:" />
+                <p:selectOneMenu id="prioridade" required="true" value="#{taskBean.task.prioridade}">
+                    <f:selectItem itemLabel="--SELECIONE--" itemValue="" noSelectionOption="true"/>
+                    <f:selectItem itemLabel="Alta" itemValue="ALTA" />
+                    <f:selectItem itemLabel="Média" itemValue="MEDIA" />
+                    <f:selectItem itemLabel="Baixa" itemValue="BAIXA" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="deadline" value="Deadline:" />
+                <p:calendar id="deadline" required="true" value="#{taskBean.task.deadline}" pattern="dd/MM/yyyy HH:mm" showTime="true" />
+
+                <h:panelGroup colspan="2" style="text-align: center;">
+                    <p:commandButton action="#{taskBean.salvarTask()}" value="Salvar" update="formCadastro formListagem:tabelaListagem" />
+                </h:panelGroup>
+            </h:panelGrid>
+        </p:panel>
+    </h:form>
+
+    <!-- Formulário de Filtros -->
+    <h:form id="formFiltros">
+        <p:panel header="Filtros" width="50%">
+            <h:panelGrid cellpadding="10" cellspacing="10" columns="4">
+            
+                <p:outputLabel for="filtroTitulo" value="Título:" />
+                <p:inputText id="filtroTitulo" value="#{taskBean.filtroTitulo}" />
+                
+                <p:outputLabel for="filtroResponsavel" value="Responsável:" />
+                <p:inputText id="filtroResponsavel" value="#{taskBean.filtroResponsavel}" />
+                
+                <p:outputLabel for="filtroNumero" value="Número:" />
+                <p:inputText id="filtroNumero" value="#{taskBean.filtroNumero}" />
+
+                <p:outputLabel for="filtroSituacao" value="Situação:" />
+                <p:selectOneMenu id="filtroSituacao" value="#{taskBean.filtroSituacao}">
+                    <f:selectItem itemLabel="--SELECIONE--" itemValue="" noSelectionOption="true"/>
+                    <f:selectItem itemLabel="Em Andamento" itemValue="EM_ANDAMENTO" />
+                    <f:selectItem itemLabel="Concluída" itemValue="CONCLUIDA" />
+                </p:selectOneMenu>
+                
+                <h:panelGroup colspan="4" style="text-align: center;">
+                    <p:commandButton value="Aplicar Filtros" actionListener="#{taskBean.buscaTasks()}" update="formListagem:tabelaListagem" />
+                </h:panelGroup>
+            </h:panelGrid>
+        </p:panel>
+    </h:form>
+
+    <!-- Formulário de Listagem -->
+    <h:form id="formListagem">
+        <p:panel header="Tarefas">
+            <p:outputPanel styleClass="icon-description-container">
+                <div class="icon-description">
+                    <div class="icon-item">
+                        <i class="pi pi-times"></i>
+                        <p>Excluir</p>
+                    </div>
+                    <div class="icon-item">
+                        <i class="pi pi-pencil"></i>
+                        <p>Editar</p>
+                    </div>
+                    <div class="icon-item">
+                        <i class="pi pi-check"></i>
+                        <p>Concluir</p>
+                    </div>
+                </div>
+            </p:outputPanel>
+
+            <!-- Tabela de Listagem -->
+            <p:dataTable value="#{taskBean.buscarTasks()}" var="task" border="1" id="tabelaListagem">
+                <p:column>
+                    <f:facet name="header">Número</f:facet>
+                    <p:outputLabel value="#{task.id}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Título</f:facet>
+                    <p:outputLabel value="#{task.titulo}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Responsável</f:facet>
+                    <p:outputLabel value="#{task.responsavel}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Prioridade</f:facet>
+                    <p:outputLabel value="#{task.prioridade}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Criação</f:facet>
+                    <p:outputLabel value="#{task.dataCriacao}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </p:outputLabel>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Conclusão</f:facet>
+                    <p:outputLabel value="#{task.dataConclusao}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </p:outputLabel>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Deadline</f:facet>
+                    <p:outputLabel value="#{task.deadline}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </p:outputLabel>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Situação</f:facet>
+                    <p:outputLabel value="#{task.situacao.descricao}" />
+                </p:column>
+                <p:column styleClass="column-icon">
+                    <p:commandButton icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-flat" action="#{taskBean.removerTask(task.id)}" update="formListagem tabelaListagem" />
+                </p:column>
+                <p:column styleClass="column-icon">
+                    <p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-flat" action="#{taskBean.editarTask(task.id)}" update="formListagem tabelaListagem" />
+                </p:column>
+                <p:column styleClass="column-icon">
+                    <p:commandButton icon="pi pi-check" styleClass="rounded-button ui-button-flat" action="#{taskBean.concluirTask(task)}" rendered="#{task.situacao ne 'CONCLUIDA'}" update="formListagem tabelaListagem"/>
+                </p:column>
+            </p:dataTable>   
+        </p:panel>
+    </h:form>
+</h:body>
+</html>

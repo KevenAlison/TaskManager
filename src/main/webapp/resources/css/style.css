@@ -1,0 +1,111 @@
+@charset "ISO-8859-1";
+
+	body {
+	    font-family: Arial, sans-serif;
+	    margin: 20px;
+	    padding: 0;
+	    background-color: #f4f4f4;
+	}
+	
+	h2 {
+	    color: #333;
+	}
+	
+	h:form {
+	    margin-bottom: 20px;
+	}
+	
+	
+	h:panelGrid {
+	    width: 100%;
+	    border-collapse: collapse;
+	}
+	
+	h:panelGrid td, h:panelGrid th {
+	    padding: 10px;
+	    border: 1px solid #ddd;
+	}
+	
+	h:panelGrid th {
+	    background-color: #f2f2f2;
+	    text-align: left;
+	}
+	
+	h:inputText, h:selectOneMenu, h:inputTextarea {
+	    width: 100%;
+	    padding: 8px;
+	    box-sizing: border-box;
+	}
+	
+	body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h:form {
+    margin-bottom: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaço entre linhas */
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre rótulo e campo */
+}
+
+.form-group p:outputLabel {
+    flex: 0 0 150px; /* Largura fixa para rótulo */
+    font-weight: bold;
+}
+
+.form-group p:inputText,
+.form-group p:inputTextarea,
+.form-group p:selectOneMenu {
+    flex: 1;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaço entre botões */
+}
+
+	
+	/* Estilização dos icones de descrição */
+	.icon-description-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+	}
+	
+	.icon-description {
+		
+	    display: flex;
+	    gap: 12px;
+	}
+	
+	.icon-item {
+	    text-align: center;
+	}
+	
+	.icon-item i {
+	    font-size: 14px;
+	    display: block;
+	    margin-bottom: 5px;
+	}
+	
+	.icon-item p {
+	    margin: 0;
+	    font-size: 14px;
+	}
+	
+	.column-icon{
+    	width: 30px; 
+	}
