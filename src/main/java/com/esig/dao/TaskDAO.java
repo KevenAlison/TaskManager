@@ -1,6 +1,5 @@
 package com.esig.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -36,47 +35,48 @@ public class TaskDAO {
 		return t;
 	}
 	
-	public List<Task> buscarTodos(String filtroTitulo, String filtroResponsavel, Long filtroNumero, String filtroSituacao) {
-        EntityManager entity = JPAUtil.getEntityManagerFactory().createEntityManager();
+	public List<Task> buscarTodos(String filtroTitulo, String filtroResponsavel, Long filtroNumero, String filtroSituacaoDescricao) {
+	    EntityManager entity = JPAUtil.getEntityManagerFactory().createEntityManager();
 
-        StringBuilder queryBusca = new StringBuilder("SELECT t FROM Task t WHERE 1=1");
-        
-        if (filtroTitulo != null && !filtroTitulo.isEmpty()) {
-        	queryBusca.append(" AND LOWER(t.titulo) LIKE :filtroTitulo");
-        }
-        if (filtroResponsavel != null && !filtroResponsavel.isEmpty()) {
-        	queryBusca.append(" AND LOWER(t.responsavel) LIKE :filtroResponsavel");
-        }
-        if (filtroNumero != null) {
-        	queryBusca.append(" AND t.id = :filtroNumero");
-        }
-        if (filtroSituacao != null && !filtroSituacao.isEmpty()) {
-        	queryBusca.append(" AND t.situacao = :filtroSituacao");
-        }
+	    StringBuilder queryBusca = new StringBuilder("SELECT t FROM Task t WHERE 1=1");
+	    
+	    if (filtroTitulo != null && !filtroTitulo.isEmpty()) {
+	        queryBusca.append(" AND LOWER(t.titulo) LIKE :filtroTitulo");
+	    }
+	    if (filtroResponsavel != null && !filtroResponsavel.isEmpty()) {
+	        queryBusca.append(" AND LOWER(t.responsavel) LIKE :filtroResponsavel");
+	    }
+	    if (filtroNumero != null) {
+	        queryBusca.append(" AND t.id = :filtroNumero");
+	    }
+	    if (filtroSituacaoDescricao != null && !filtroSituacaoDescricao.isEmpty()) {
+	        queryBusca.append(" AND t.situacao = :filtroSituacao");
+	    }
 
-        queryBusca.append(" ORDER BY t.situacao, t.prioridade DESC, t.deadline, t.dataCriacao");
+	    queryBusca.append(" ORDER BY t.situacao, t.prioridade DESC, t.deadline, t.dataCriacao");
 
-        Query query = entity.createQuery(queryBusca.toString());
+	    Query query = entity.createQuery(queryBusca.toString());
 
-        // Define os parâmetros
-        if (filtroTitulo != null && !filtroTitulo.isEmpty()) {
-            query.setParameter("filtroTitulo", "%" + filtroTitulo.toLowerCase() + "%");
-        }
-        if (filtroResponsavel != null && !filtroResponsavel.isEmpty()) {
-            query.setParameter("filtroResponsavel", "%" + filtroResponsavel.toLowerCase() + "%");
-        }
-        if (filtroNumero != null) {
-            query.setParameter("filtroNumero", filtroNumero);
-        }
-        if (filtroSituacao != null && !filtroSituacao.isEmpty()) {
-            query.setParameter("filtroSituacao", Situacao.valueOf(filtroSituacao));
-        }
+	    if (filtroTitulo != null && !filtroTitulo.isEmpty()) {
+	        query.setParameter("filtroTitulo", "%" + filtroTitulo.toLowerCase() + "%");
+	    }
+	    if (filtroResponsavel != null && !filtroResponsavel.isEmpty()) {
+	        query.setParameter("filtroResponsavel", "%" + filtroResponsavel.toLowerCase() + "%");
+	    }
+	    if (filtroNumero != null) {
+	        query.setParameter("filtroNumero", filtroNumero);
+	    }
+	    if (filtroSituacaoDescricao != null && !filtroSituacaoDescricao.isEmpty()) {
+	            int situacaoNivel = Situacao.fromDescricao(filtroSituacaoDescricao);
+	            query.setParameter("filtroSituacao", situacaoNivel);
 
-        List<Task> listaTasks = query.getResultList();
-        entity.close();
-        return listaTasks;
-    }
-	
+	    }
+
+	    List<Task> listaTasks = query.getResultList();
+	    entity.close();
+	    return listaTasks;
+	}
+
 	public void deletar(Long id) {
 		EntityManager entity = JPAUtil.getEntityManagerFactory().createEntityManager();
 		entity.getTransaction().begin();

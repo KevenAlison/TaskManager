@@ -83,8 +83,8 @@
                             <p:outputLabel for="filtroSituacao" value="Situação:" />
                             <p:selectOneMenu id="filtroSituacao" value="#{taskBean.filtroSituacao}">
                                 <f:selectItem itemLabel="--SELECIONE--" itemValue="" noSelectionOption="true"/>
-                                <f:selectItem itemLabel="Em Andamento" itemValue="EM_ANDAMENTO" />
-                                <f:selectItem itemLabel="Concluída" itemValue="CONCLUIDA" />
+                                <f:selectItem itemLabel="Em andamento" itemValue="Em andamento" />
+                                <f:selectItem itemLabel="Concluída" itemValue="Concluída" />
                             </p:selectOneMenu>                          
                         </h:panelGrid>
                         </div>
@@ -142,19 +142,19 @@
                             <p:outputLabel value="#{task.situacao.descricao}" />
                         </p:column>
                         <p:column styleClass="column-icon">
-                            <p:commandButton icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-flat" action="#{taskBean.removerTask(task.id)}" update="formFiltros" />
+                            <p:commandButton icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-flat" action="#{taskBean.removerTask(task.id)}" update="formFiltros formListagem" />
                         </p:column>
                         <p:column styleClass="column-icon">
-                            <p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-flat" action="#{taskBean.editarTask(task.id)}" update="formFiltros" />
+                            <p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-flat" action="#{taskBean.editarTask(task.id)}" update="formFiltros formListagem" />
                         </p:column>
                         <p:column styleClass="column-icon">
                             <p:commandButton icon="pi pi-search" styleClass="rounded-button ui-button-flat" 
                                 oncomplete="PF('dlgDetalhes').show();" 
                                 action="#{taskBean.detalharTask(task.id)}" 
-                                update=":formDetalhes" />
+                                update=":formDetalhes formListagem" />
                         </p:column>
                         <p:column styleClass="column-icon">
-                            <p:commandButton icon="pi pi-check" styleClass="rounded-button ui-button-success ui-button-flat" action="#{taskBean.concluirTask(task)}" rendered="#{task.situacao ne 'CONCLUIDA'}" update="formFiltros"/>
+                            <p:commandButton icon="pi pi-check" styleClass="rounded-button ui-button-success ui-button-flat" action="#{taskBean.concluirTask(task)}" rendered="#{task.situacao ne 'CONCLUIDA'}" update="formFiltros formListagem"/>
                         </p:column>
                     </p:dataTable>  
                 </h:form>
