@@ -19,15 +19,16 @@
             <!-- Formulário de Cadastro -->
              <p:panel header="Cadastrar Tarefa" style="max-width: 70%; margin: 0 auto;">
                 <h:form id="formCadastro">
+                    <p:messages autoUpdate="true" id="msg" closable="true" display="text"/>
                     <div class="form-container">
                         <div class="form-row">
                             <p:outputLabel for="titulo" value="Título:" />
-                            <p:inputText id="titulo" required="true" value="#{taskBean.task.titulo}" />
+                            <p:inputText id="titulo" required="true" requiredMessage="O título é obrigatório." value="#{taskBean.task.titulo}" />
                         </div>
 
                         <div class="form-row">
                             <p:outputLabel for="descricao" value="Descrição:" />
-                            <p:inputTextarea id="descricao" required="true" 
+                            <p:inputTextarea id="descricao" required="true" requiredMessage="A descrição é obrigatória."
                                 rows="4" maxlength="200"
                                 counter="saida" counterTemplate="{0} caracteres restantes"
                                 value="#{taskBean.task.descricao}" />          
@@ -37,11 +38,11 @@
                         <div class="form-row-two">
                             <div>
                                 <p:outputLabel for="responsavel" value="Responsável:" />
-                                <p:inputText id="responsavel" required="true" value="#{taskBean.task.responsavel}" />
+                                <p:inputText id="responsavel" required="true" requiredMessage="O responsável é obrigatório." value="#{taskBean.task.responsavel}" />
                             </div>
                             <div>
                                 <p:outputLabel for="prioridade" value="Prioridade:" />
-                                <p:selectOneMenu id="prioridade" required="true" value="#{taskBean.task.prioridade}">
+                                <p:selectOneMenu id="prioridade" required="true" requiredMessage="A prioridade é obrigatória." value="#{taskBean.task.prioridade}">
                                     <f:selectItem itemLabel="--SELECIONE--" itemValue="" noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Alta" itemValue="ALTA" />
                                     <f:selectItem itemLabel="Média" itemValue="MEDIA" />

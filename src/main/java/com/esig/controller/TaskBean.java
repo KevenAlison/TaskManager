@@ -1,6 +1,5 @@
 package com.esig.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +12,7 @@ import javax.faces.context.FacesContext;
 import com.esig.dao.TaskDAO;
 import com.esig.model.Situacao;
 import com.esig.model.Task;
+import com.esig.util.Messages;
 
 @ManagedBean(name="taskBean")
 @RequestScoped()
@@ -49,6 +49,7 @@ public class TaskBean {
         task.setSituacao(Situacao.EM_ANDAMENTO);
         taskDAO.salvar(task);
         task = new Task();
+        Messages.info("Tarefa salva com sucesso");
         return "";
     }
     
