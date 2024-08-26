@@ -1,71 +1,74 @@
 <!DOCTYPE HTML>
 <html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:h="http://java.sun.com/jsf/html"
-       xmlns:f="http://xmlns.jcp.org/jsf/core"
-       xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <meta charset="utf-8" name="viewport"
-          content="width=device-width, initial-scale=1"
-          http-equiv="X-UA-Compatible" />
-    <h:outputStylesheet library="css" name="style.css"/> 
-    <title>Gerenciador de Tarefas</title>
-</h:head>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8" name="viewport"
+              content="width=device-width, initial-scale=1"
+              http-equiv="X-UA-Compatible" />
+        <h:outputStylesheet library="css" name="style.css"/> 
+        <title>Gerenciador de Tarefas</title>
+    </h:head>
 
-<h:body>
-    <p:graphicImage library="images" name="esig-removebg.png" width="200px"/>
+    <h:body>
+    	<div class="header">
+        	<p:graphicImage library="images" name="esig-removebg.png" width="200px"/>
+        </div>
+        <div class="container">
     
-    <!-- Formulário de Edição de Tarefa -->
-    <h:form id="formEdicao">
-        <p:panel header="Editar Tarefa">
-            <div class="form-container">
-				          
-                <div class="form-group">
-                    <p:outputLabel for="numero" value="Número:" />
-                    <p:inputText id="numero" required="true" disabled="true" value="#{task.id}" />
-                </div>
+		    <!-- Formulário de Edição de Tarefa -->
+		    <p:panel header="Editar Tarefa" style="max-width: 70%; margin: 0 auto;">
+		    	<h:form id="formEdicao">
+		            <div class="form-container">
+		            
+		                <div class="form-row" style="max-width: 50px;">
+		                    <p:outputLabel for="numero" value="Número:" />
+		                    <p:inputText id="numero" required="true" disabled="true" value="#{task.id}" />
+		                </div>
+						
+						<div class="form-row">
+		                <p:outputLabel for="titulo" value="Título:" />
+                            <p:inputText id="titulo" required="true" value="#{task.titulo}" />
+                        </div>
+                        
+                        <div class="form-row">
+                            <p:outputLabel for="descricao" value="Descrição:" />
+                            <p:inputTextarea id="descricao" required="true" 
+                                rows="4" maxlength="200"
+                                counter="saida" counterTemplate="{0} caracteres restantes"
+                                value="#{task.descricao}" />          
+                            <p:outputLabel id="saida" style="font-size: 12px;"/>
+                        </div>
 
+                        <div class="form-row-two">
+                            <div>
+                                <p:outputLabel for="responsavel" value="Responsável:" />
+                                <p:inputText id="responsavel" required="true" value="#{task.responsavel}" />
+                            </div>
+                            <div>
+                                <p:outputLabel for="prioridade" value="Prioridade:" />
+                                <p:selectOneMenu id="prioridade" required="true" value="#{task.prioridade}">
+                                    <f:selectItem itemLabel="--SELECIONE--" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Alta" itemValue="ALTA" />
+                                    <f:selectItem itemLabel="Média" itemValue="MEDIA" />
+                                    <f:selectItem itemLabel="Baixa" itemValue="BAIXA" />
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
 
-				<div class="form-group">
-	            	<p:outputLabel for="titulo" value="Título:" />
-	                <p:inputText id="titulo" required="true"  value="#{task.titulo}" style="width: 350px;" />
-				</div>   
-				 
-                <div class="form-group">
-                    <p:outputLabel for="descricao" value="Descrição:" />
-                    <p:inputTextarea id="descricao" required="true" 
-                    	style="width: 400px;"
-                    	rows="4" maxlength="50"
-                    	counter="saida" counterTemplate="{0} caracteres restantes"
-                        value="#{task.descricao}" />
-                    <p:outputLabel id="saida" />
-                </div>
-
-                <div class="form-group">
-                    <p:outputLabel for="responsavel" value="Responsável:" />
-                    <p:inputText id="responsavel" required="true" value="#{task.responsavel}" />
-                </div>
-
-                <div class="form-group">
-                    <p:outputLabel for="prioridade" value="Prioridade:" />
-                    <p:selectOneMenu id="prioridade" required="true" value="#{task.prioridade}">
-                        <f:selectItem itemLabel="--SELECIONE--" itemValue="" noSelectionOption="true"/>
-                        <f:selectItem itemLabel="Alta" itemValue="ALTA" />
-                        <f:selectItem itemLabel="Média" itemValue="MEDIA" />
-                        <f:selectItem itemLabel="Baixa" itemValue="BAIXA" />
-                    </p:selectOneMenu>
-                </div>
-
-                <div class="form-group">
-                    <p:outputLabel for="deadline" value="Deadline:" />
-                    <p:calendar id="deadline" required="true" value="#{task.deadline}" pattern="dd/MM/yyyy HH:mm" showTime="true" />
-                </div>
-                
-                <div class="button-group">
-                    <p:commandButton action="#{taskBean.cancelar()}" value="Cancelar" styleClass="ui-button-raised ui-button-danger ui-button-flat"/>
-                    <p:commandButton action="#{taskBean.atualizarTask(task)}" value="Editar"/>
-                </div>
-            </div>
-        </p:panel>
-    </h:form>
+                        <div class="form-row-deadline">
+                            <p:outputLabel for="deadline" value="Deadline:" />
+                            <p:calendar id="deadline" required="true" value="#{task.deadline}" pattern="dd/MM/yyyy HH:mm" showTime="true" />
+                        </div>
+		                
+		                <div class="button-group">
+		                    <p:commandButton action="#{taskBean.cancelar()}" value="Cancelar" styleClass="ui-button-raised ui-button-danger ui-button-flat"/>
+		                    <p:commandButton action="#{taskBean.atualizarTask(task)}" value="Editar"/>
+		                </div>
+		            </div>
+		    	</h:form>
+		    </p:panel>
+	   	</div>
 </h:body>
 </html>

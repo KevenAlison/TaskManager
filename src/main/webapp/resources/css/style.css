@@ -1,5 +1,5 @@
-@charset "ISO-8859-1";
-
+	@charset "ISO-8859-1";
+	
 	body {
 	    font-family: Arial, sans-serif;
 	    margin: 20px;
@@ -7,86 +7,126 @@
 	    background-color: #f4f4f4;
 	}
 	
+	.header {
+	    padding: 20px;
+	    background-color: #FFE4E1;
+	}
+	
+	.container {
+	    max-width: 70%;
+	    margin: 0 auto;
+	    padding-top: 20px;
+	}
+	
 	h2 {
 	    color: #333;
 	}
 	
-	h:form {
+	h\:form {
 	    margin-bottom: 20px;
 	}
 	
-	
-	h:panelGrid {
+	h\:panelGrid {
 	    width: 100%;
 	    border-collapse: collapse;
 	}
 	
-	h:panelGrid td, h:panelGrid th {
+	h\:panelGrid td, h\:panelGrid th {
 	    padding: 10px;
 	    border: 1px solid #ddd;
 	}
 	
-	h:panelGrid th {
+	h\:panelGrid th {
 	    background-color: #f2f2f2;
 	    text-align: left;
 	}
 	
-	h:inputText, h:selectOneMenu, h:inputTextarea {
+	h\:inputText, h\:selectOneMenu, h\:inputTextarea {
 	    width: 100%;
 	    padding: 8px;
 	    box-sizing: border-box;
 	}
 	
-	body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
-h:form {
-    margin-bottom: 20px;
-}
-
-.form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Espaço entre linhas */
-}
-
-.form-group {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Espaço entre rótulo e campo */
-}
-
-.form-group p:outputLabel {
-    flex: 0 0 150px; /* Largura fixa para rótulo */
-    font-weight: bold;
-}
-
-.form-group p:inputText,
-.form-group p:inputTextarea,
-.form-group p:selectOneMenu {
-    flex: 1;
-}
-
-.button-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Espaço entre botões */
-}
-
+	.form-container {
+	    padding-top: 20px;
+	    padding: 50px;
+	}
 	
-	/* Estilização dos icones de descrição */
+	.form-container-filter {
+	    margin: 0 auto;
+	}
+	
+	.form-row,
+	.form-row-deadline,
+	.form-row-two {
+	    margin-bottom: 10px;
+	    padding: 5px;
+	}
+	
+	.form-row {
+	    display: flex;
+	    flex-direction: column; /* Alinha rótulo e campo verticalmente */
+	}
+	
+	.form-row label,
+	.form-row-two label,
+	.form-row-deadline label {
+	    display: block;
+	    width: auto;
+	    font-weight: bold;
+	    margin-bottom: 5px;
+	}
+	
+	.form-row input,
+	.form-row select,
+	.form-row textarea {
+	    width: 100%;
+	    padding: 5px;
+	    box-sizing: border-box;
+	}
+	
+	.form-row-deadline {
+	    display: flex;
+	    flex-direction: column;
+	}
+	
+	.form-row-deadline input {
+	    width: 200px;
+	    padding: 5px;
+	    box-sizing: border-box;
+	}
+	
+	.form-row-two {
+	    display: flex;
+	    justify-content: space-between;
+	}
+	
+	.form-row-two > div {
+	    flex: 1;
+	}
+	
+	.form-row-two > div:last-child {
+	    margin-right: 0;
+	}
+	
+	/* Estilização do botão de salvar */
+	.form-row-submit,
+	.form-container-filter {
+	    display: flex;
+	    justify-content: center;
+	    margin-top: 20px;
+	}
+	
+	/* Estilização dos ícones de descrição */
 	.icon-description-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5px;
+	    display: flex;
+	    justify-content: center;
+	    margin-bottom: 5px;
+	    padding-top: 20px;
 	}
 	
 	.icon-description {
-		
+	    padding-top: 40px;
 	    display: flex;
 	    gap: 12px;
 	}
@@ -106,6 +146,6 @@ h:form {
 	    font-size: 14px;
 	}
 	
-	.column-icon{
-    	width: 30px; 
+	.column-icon {
+	    width: 30px; 
 	}
