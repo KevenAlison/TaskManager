@@ -21,7 +21,7 @@
 		    <p:panel header="Editar Tarefa" style="max-width: 70%; margin: 0 auto;">
 		    	<h:form id="formEdicao">
 		            <div class="form-container">
-		            
+		            	<p:messages autoUpdate="true" id="msg" closable="true" display="text"/>
 		                <div class="form-row" style="max-width: 50px;">
 		                    <p:outputLabel for="numero" value="Número:" />
 		                    <p:inputText id="numero" required="true" disabled="true" value="#{task.id}" />
@@ -64,7 +64,7 @@
 		                
 		                <div class="button-group">
 		                    <p:commandButton action="#{taskBean.cancelar()}" value="Cancelar" styleClass="ui-button-raised ui-button-danger ui-button-flat"/>
-		                    <p:commandButton action="#{taskBean.atualizarTask(task)}" value="Editar"/>
+		                    <p:commandButton action="#{taskBean.atualizarTask(task)}" value="Editar" update="formEdicao"/>
 		                </div>
 		            </div>
 		    	</h:form>

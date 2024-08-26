@@ -1,90 +1,98 @@
 package com.esig.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-
-import com.esig.dao.TaskDAO;
 import com.esig.model.Situacao;
 import com.esig.model.Task;
+import com.esig.service.TaskService;
 import com.esig.util.Messages;
+import com.esig.util.NegocioException;
 
 @ManagedBean(name="taskBean")
-@RequestScoped()
+@RequestScoped
 public class TaskBean {
     private Task task = new Task();
     private String filtroTitulo;
     private String filtroResponsavel;
-    private Integer filtroNumero;
+    private Long filtroNumero;
     private String filtroSituacao;
-    TaskDAO taskDAO = new TaskDAO();
-    
-    public List<Task> buscaTasks(){
-        List<Task> tasks = new ArrayList<>();
-        tasks = taskDAO.bucarTodos();
+    private TaskService taskService = new TaskService();
 
-        if (filtroTitulo != null && !filtroTitulo.isEmpty()) {
-            tasks.removeIf(t -> !t.getTitulo().toLowerCase().contains(filtroTitulo.toLowerCase()));
-        }
-        if (filtroResponsavel != null && !filtroResponsavel.isEmpty()) {
-            tasks.removeIf(t -> !t.getResponsavel().toLowerCase().contains(filtroResponsavel.toLowerCase()));
-        }
-        if (filtroNumero != null) {
-            tasks.removeIf(t -> !t.getId().equals(filtroNumero));
-        }
-        if (filtroSituacao != null && !filtroSituacao.isEmpty()) {
-            tasks.removeIf(t -> !t.getSituacao().toString().equals(filtroSituacao));
-        }
-
-        return tasks;
+    public List<Task> buscaTasks() {
+        return taskService.filtrarTasks(filtroTitulo, filtroResponsavel, filtroNumero, filtroSituacao);
     }
-    
-    public String salvarTask(){
-        task.setDataCriacao(new Date());
-        task.setSituacao(Situacao.EM_ANDAMENTO);
-        taskDAO.salvar(task);
-        task = new Task();
-        Messages.info("Tarefa salva com sucesso");
+
+    public String salvarTask() {
+        try {
+            taskService.salvarTask(task);
+            task = new Task();
+            Messages.info("Tarefa salva com sucesso.");
+        } catch (NegocioException e) {
+            Messages.error(e.getMessage());
+        }
         return "";
     }
-    
-    public String removerTask(Long id){
-        taskDAO.deletar(id);
+
+    public String removerTask(Long id) {
+        try {
+            taskService.deletarTask(id);
+            Messages.info("Tarefa " + id + " removida com sucesso.");
+        } catch (NegocioException e) {
+            Messages.error(e.getMessage());
+        }
         return "";
     }
-    
-    public String editarTask(Long id){
-        task = taskDAO.buscarPorId(id);
-        Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-        sessionMap.put("task", task);
+
+    public String editarTask(Long id) {
+        try {
+            task = taskService.buscarPorId(id);
+            Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+            sessionMap.put("task", task);
+        } catch (NegocioException e) {
+            Messages.error(e.getMessage());
+        }
         return "editar.xhtml?faces-redirect=true";
     }
-    
-    public String atualizarTask(Task task){
-        taskDAO.atualizar(task);
-        return "index.xhtml?faces-redirect=true";
-    }
-    
-    public String concluirTask(Task task){
-        if(task.getSituacao()!=Situacao.CONCLUIDA) {
-            task.setSituacao(Situacao.CONCLUIDA);
-            task.setDataConclusao(new Date());
+
+    public String atualizarTask(Task task) {
+        try {
+            taskService.atualizarTask(task);
+            Messages.info("Tarefa " + task.getId() + " atualizada com sucesso.");
+            return "index.xhtml?faces-redirect=true";
+        } catch (NegocioException e) {
+            Messages.error(e.getMessage());
+            return "";
         }
-        taskDAO.atualizar(task);
+        
+    }
+
+    public String concluirTask(Task task) {
+        try {
+            if (task.getSituacao() != Situacao.CONCLUIDA) {
+                task.setSituacao(Situacao.CONCLUIDA);
+                task.setDataConclusao(new Date());
+                taskService.atualizarTask(task);
+            }
+        } catch (NegocioException e) {
+            Messages.error(e.getMessage());
+        }
         return "";
     }
-    
-    public String detalharTask(Long id){
-    	task = taskDAO.buscarPorId(id);
+
+    public String detalharTask(Long id) {
+        try {
+            task = taskService.buscarPorId(id);
+        } catch (NegocioException e) {
+            Messages.error(e.getMessage());
+        }
         return null;
     }
-    
-    public String cancelar(){
+
+    public String cancelar() {
         return "index.xhtml?faces-redirect=true";
     }
 
@@ -96,15 +104,14 @@ public class TaskBean {
         this.task = task;
     }
 
-    public TaskDAO getTaskDAO() {
-        return taskDAO;
+    public TaskService getTaskService() {
+        return taskService;
     }
 
-    public void setTaskDAO(TaskDAO taskDAO) {
-        this.taskDAO = taskDAO;
+    public void setTaskService(TaskService taskService) {
+        this.taskService = taskService;
     }
 
-    // Getters e Setters dos filtros
     public String getFiltroTitulo() {
         return filtroTitulo;
     }
@@ -121,11 +128,11 @@ public class TaskBean {
         this.filtroResponsavel = filtroResponsavel;
     }
 
-    public Integer getFiltroNumero() {
+    public Long getFiltroNumero() {
         return filtroNumero;
     }
 
-    public void setFiltroNumero(Integer filtroNumero) {
+    public void setFiltroNumero(Long filtroNumero) {
         this.filtroNumero = filtroNumero;
     }
 
