@@ -1,0 +1,10 @@
+com\esig\model\Task.class
+com\esig\dao\TaskDAO.class
+com\esig\util\NegocioException.class
+com\esig\controller\TaskBean.class
+com\esig\model\Prioridade.class
+com\esig\model\User.class
+com\esig\service\TaskService.class
+com\esig\model\JPAUtil.class
+com\esig\model\Situacao.class
+com\esig\util\Messages.class
