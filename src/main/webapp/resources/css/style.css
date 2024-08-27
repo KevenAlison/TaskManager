@@ -1,4 +1,4 @@
-	@charset "ISO-8859-1";
+@charset "ISO-8859-1";
 	
 	body {
 	    font-family: Arial, sans-serif;
@@ -109,7 +109,6 @@
 	    margin-right: 0;
 	}
 	
-	/* Estilização do botão de salvar */
 	.form-row-submit,
 	.form-container-filter {
 	    display: flex;
@@ -117,7 +116,6 @@
 	    margin-top: 20px;
 	}
 	
-	/* Estilização dos ícones de descrição */
 	.icon-description-container {
 	    display: flex;
 	    justify-content: center;
@@ -147,5 +145,5 @@
 	}
 	
 	.column-icon {
-	    width: 30px; 
+	    width: 20px; 
 	}

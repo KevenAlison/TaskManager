@@ -123,7 +123,7 @@
                      paginator="true" paginatorPosition="bottom"
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records">
-                        <p:column>
+                        <p:column width="70">
                             <f:facet name="header">Número</f:facet>
                             <p:outputLabel value="#{task.id}" />
                         </p:column>
@@ -131,19 +131,19 @@
                             <f:facet name="header">Título</f:facet>
                             <p:outputLabel value="#{task.titulo}" />
                         </p:column>
-                        <p:column>
+                        <p:column width="150">
                             <f:facet name="header">Responsável</f:facet>
                             <p:outputLabel value="#{task.responsavel}" />
                         </p:column>
-                        <p:column>
+                        <p:column width="150">
                             <f:facet name="header">Deadline</f:facet>
                             <p:outputLabel value="#{task.deadline}">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" style="max-width: 200px"/>
                             </p:outputLabel>
                         </p:column>
-                        <p:column>
+                        <p:column width="130">
                             <f:facet name="header">Situação</f:facet>
-                            <p:outputLabel value="#{task.situacao.descricao}" />
+                            <p:outputLabel value="#{task.situacao.descricao}" style="max-width: 200px"/>
                         </p:column>
                         <p:column styleClass="column-icon">
                             <p:commandButton icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-flat" action="#{taskBean.removerTask(task.id)}" update="formFiltros formListagem" />
