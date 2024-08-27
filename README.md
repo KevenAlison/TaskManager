@@ -23,12 +23,11 @@ A aplicação foi projetada com base no padrão de arquitetura MVC, visando faci
 
 Com essas ferramentas foi possível criar uma aplicação visualmente agrádável e intuitiva, com o devido tratamento de dados na camada de persistência e contando com tratamento de erros simples.
 
-<h1>
-<img src="desafio/cadastrar.PNG" width="500px">
-<img src="desafio/listagem.PNG" width="500px">
-<img src="desafio/detalhes.PNG" width="500px">
-<img src="desafio/editar.PNG" width="500px">
-</h1>
+<h1><img src="desafio/cadastrar.PNG" width="900px"></h1>
+<h1><img src="desafio/listagem.PNG" width="900px"></h1>
+<h1><img src="desafio/detalhes.PNG" width="900px"></h1>
+<h1><img src="desafio/editar.PNG" width="900px"></h1>
+
 
 ## Executando o projeto
 * Em uma pasta inicialize um repositório e clone o projeto
@@ -38,7 +37,18 @@ $ git clone git@github.com:KevenAlison/TaskManager.git
 ```
 * Utilizando sua IDE de preferência (O projeto foi desenvolvido no ECLIPSE) importe o projeto clonado como um projeto MAVEN.
 * Garanta que o Compilador da IDE esteja configurado para Java 1.8
+* Atualize o arquivo persistence.xml para seu banco de dados
+```bash
+	    <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/seu-banco"/>
+	    <property name="javax.persistence.jdbc.user" value="seu-user"/>
+	    <property name="javax.persistence.jdbc.password" value="sua-senha"/>
+	    <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+	    <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+	    <property name="hibernate.hbm2ddl.auto" value="update"/>
+	    <property name="hibernate.show_sql" value="true"/>      
+```
 * Start a aplicação utilizando APACHE TOMCAT 9.0
+
 
 ## Pendencias
 * Os testes unitários não foram implementados por falta de expertise no assunto.
