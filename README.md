@@ -1,6 +1,6 @@
-# DESAFIO ESIG SOFTWARE - GERENCIADOR DE TAREFAS
+# GERENCIADOR DE TAREFAS
 
-Esse projeto foi proposto pela ESIG com o objetivo de avaliar os conhecimentos de seus candidatos para a vaga de estágiário de Desenvolvimento Java. O desafio se resume em criar um gerenciador de tarefas capaz de realizar as funcionalidades básicas de um CRUD.
+Esse projeto tem como objetivo o desenvolvimento de um gerenciador de tarefas capaz de realizar as funcionalidades básicas de um CRUD.
 
 ## PANORAMA GERAL DA APLICAÇÃO
 A proposta original segue o seguinte modelo de desenvolvimento, de forma que existem duas principais telas para o cadastro e listagem de tarefas. Além disso, dentro da listagem existe um filtro para controlar o conteúdo visualizado.
