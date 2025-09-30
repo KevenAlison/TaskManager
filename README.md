@@ -50,9 +50,6 @@ $ git clone git@github.com:KevenAlison/TaskManager.git
 * Start a aplicação utilizando APACHE TOMCAT 9.0
 
 
-## Pendencias
-* Os testes unitários não foram implementados por falta de expertise no assunto.
-* Não foi possível lidar à tempo com os conflitos ao realizar do deploy da aplicação.
 
   
   
